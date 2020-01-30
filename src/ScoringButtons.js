@@ -7,9 +7,9 @@ function capitalize(word) {
 
 const ScoringButtons = (props) => {
   return (
-      <div className={props.teamLocation + "Buttons"}>
-        <button onClick={ () => props.setScore(props.score + 7) } className="homeButtons__touchdown">{capitalize(props.teamLocation)} Touchdown</button>
-        <button onClick={ () => props.setScore(props.score + 3) } className="homeButtons__fieldGoal">{capitalize(props.teamLocation)} Field Goal</button>
+      <div className={`${props.teamLocation}Buttons`}>
+        <button onClick={ () => props.setScore(props.score + 7) } className={`${props.teamLocation}Buttons__touchdown`}>{capitalize(props.teamLocation)} Touchdown</button>
+        <button onClick={ () => props.setScore(props.score + 3) } className={`${props.teamLocation}Buttons__fieldGoal`}>{capitalize(props.teamLocation)} Field Goal</button>
       </div>
   );
 };
