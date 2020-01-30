@@ -9,12 +9,13 @@ function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
+  const [quarter, setQuarter] = useState(1);
 
   return (
     <div className="container">
       <section className="scoreboard">
         <TopRow homeScore={homeScore} awayScore={awayScore} />
-        <BottomRow />
+        <BottomRow quarter={quarter} />
       </section>
       <section className="buttons">
         <ScoringButtons
@@ -27,6 +28,11 @@ function App() {
           score={awayScore}
           setScore={ setAwayScore }
         />
+        <div className="quarter-button">
+          <button
+            onClick={ () => setQuarter(quarter <= 3 ? quarter + 1 : quarter - 3) }
+          >Next Quarter</button>
+        </div>
       </section>
     </div>
   );
