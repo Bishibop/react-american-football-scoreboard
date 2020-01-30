@@ -62,7 +62,7 @@ function App() {
         <div className="toggle-clock-button">
           <button
             onClick={ () => {toggleClock(clockSeconds, setClockSeconds, isClockRunning, setIsClockRunning)} }
-          >Toggle Clock</button>
+          >{isClockRunning ? "Stop Clock" : "Start Clock"}</button>
         </div>
       </section>
     </div>
