@@ -7,20 +7,31 @@ import ScoringButtons from "./ScoringButtons";
 
 const toggleClock = function() {
   let interval = null;
-  let internalSeconds = 0;
+
   return function(seconds,
                   setSeconds,
                   isClockRunning,
-                  setIsClockRunning) {
+                  setIsClockRunning,
+                  quarter,
+                  setQuarter) {
     let internalSeconds = seconds;
     if (isClockRunning) {
       clearInterval(interval);
-      interval = null;
       setIsClockRunning(false);
     } else {
       interval = setInterval(() => {
-        internalSeconds += 1;
-        setSeconds(internalSeconds);
+        if (internalSeconds !== 0) {
+          internalSeconds -= 1;
+          setSeconds(internalSeconds);
+        } else if (quarter < 4) {
+          setQuarter(quarter + 1);
+          setSeconds(900);
+          clearInterval(interval);
+          setIsClockRunning(false);
+        } else {
+          clearInterval(interval);
+          setIsClockRunning(false);
+        }
       }, 1000);
       setIsClockRunning(true);
     }
@@ -31,7 +42,7 @@ function App() {
   const [homeScore, setHomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
   const [quarter, setQuarter] = useState(1);
-  const [clockSeconds, setClockSeconds] = useState(0);
+  const [clockSeconds, setClockSeconds] = useState(900);
   const [isClockRunning, setIsClockRunning] = useState(false);
 
   return (
@@ -61,7 +72,7 @@ function App() {
         </div>
         <div className="toggle-clock-button">
           <button
-            onClick={ () => {toggleClock(clockSeconds, setClockSeconds, isClockRunning, setIsClockRunning)} }
+            onClick={ () => {toggleClock(clockSeconds, setClockSeconds, isClockRunning, setIsClockRunning, quarter, setQuarter)} }
           >{isClockRunning ? "Stop Clock" : "Start Clock"}</button>
         </div>
       </section>
